@@ -14,3 +14,7 @@ class FSM:
             '''use the consequent of a rule to a) set the next state to FSM and b) call the appropriate agent action method'''
         def main_loop(self):
             '''begin in the FSM's default initial state and then repeatedly call get_next_signal and run_rules until the FSM enters its default final stat'''
+def hanna():
+    print("hei")
+
+    
