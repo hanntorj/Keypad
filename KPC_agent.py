@@ -1,3 +1,6 @@
+from keypad import *
+from FSM import *
+from LED-board import *
 
 class KPC:
     '''main method including variables'''
