@@ -1,5 +1,4 @@
 import RPi.GPIO as GPIO
-'''liten test'''
 class Keypad:
     '''Keypad'''
 
