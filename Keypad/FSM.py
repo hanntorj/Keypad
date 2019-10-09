@@ -1,8 +1,10 @@
-#from KPC import *
+from KPC_agent import *
 
 class FSM:
-    def switch_demo(argument):
-        switcher = {
+    def __init__(self):
+        self.state = "INIT"
+    def switch(argument):
+        switch = {
             1: "INIT",
             2: "READ",
             3: "VERIFY",
@@ -15,17 +17,17 @@ class FSM:
             10: "DONE",
      }
 
-        def add_rule(self):
+    def add_rule(self):
             '''add a new rule to the end of the FSM's rule list'''
-        def get_next_signal(self):
+    def get_next_signal(self):
             '''query the agent for the next signal'''
-        def run_rules(self):
+    def run_rules(self):
             '''go through the rule set, in order, applying each rule until one of the rules is fired'''
-        def apply_rule(self):
+    def apply_rule(self):
             '''check whether the conditions of a rule are met'''
-        def fire_rule(self):
+    def fire_rule(self):
             '''use the consequent of a rule to a) set the next state to FSM and b) call the appropriate agent action method'''
-        def main_loop(self):
+    def main_loop(self):
             '''begin in the FSM's default initial state and then repeatedly call get_next_signal and run_rules until the FSM enters its default final stat'''
 
 print("Beep boop beep boop")
