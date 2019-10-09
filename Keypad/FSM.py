@@ -1,4 +1,4 @@
-from KPC import *
+#from KPC import *
 
 class FSM:
     def switch_demo(argument):
@@ -28,3 +28,4 @@ class FSM:
         def main_loop(self):
             '''begin in the FSM's default initial state and then repeatedly call get_next_signal and run_rules until the FSM enters its default final stat'''
 
+print("Beep boop beep boop")
