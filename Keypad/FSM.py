@@ -1,6 +1,8 @@
 from KPC_agent import *
 
 class FSM:
+    def __init__(self):
+        self.state = "INIT"
     def switch_demo(argument):
         switcher = {
             1: "INIT",
