@@ -4,7 +4,6 @@ class FSM:
     def __init__(self):
         self.state = "DONE"
         self.rules = [] #er dette liste over reglene vi legger til?
-    def switch(argument):
         switch = {
             1: "INIT",
             2: "READ",
@@ -16,7 +15,7 @@ class FSM:
             8: "READ3",
             9: "LOGOUT",
             10: "DONE",
-     }
+        }'''
 
     def add_rule(self, state1, state2, input, action):
         ''''add a new rule to the end of the FSM's rule list'''
