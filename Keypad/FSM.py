@@ -3,21 +3,7 @@ from KPC_agent import *
 class FSM:
     def __init__(self):
         self.state = "DONE"
-        self.rules = []
-        self.switch = {
-            1: "INIT",
-            2: "READ",
-            3: "VERIFY",
-            4: "ACTIVE",
-            5: "LED",
-            6: "TIME",
-            7: "READ2",
-            8: "READ3",
-            9: "LOGOUT",
-            10: "DONE",
-        }
-
-    '''def switch(self, argument):
+        self.rules = [] #er dette liste over reglene vi legger til?
         switch = {
             1: "INIT",
             2: "READ",
@@ -50,3 +36,6 @@ class FSM:
 
     def main_loop(self):
         '''begin in the FSM's default initial state and then repeatedly call get_next_signal and run_rules until the FSM enters its default final stat'''
+
+class rule:
+    '''Rule object for implementing a RBS'''
