@@ -4,8 +4,8 @@ from KPC_agent import *
 class FSM:
     def __init__(self):
         self.state = "INIT"
-
-    def switch(argument):
+        self.state = "DONE"
+        self.rules = [] #er dette liste over reglene vi legger til? Ja, tenker det foreløpig
         switch = {
             1: "INIT",
             2: "READ",
@@ -39,5 +39,5 @@ class FSM:
         """begin in the FSM's default initial state and then repeatedly call get_next_signal
         and run_rules until the FSM enters its default final stat"""
 
-
-print("Test")
+class rule:
+    """Rule object for implementing a RBS"""

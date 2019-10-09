@@ -4,6 +4,17 @@ from LED_board import *
 
 class KPC:
     '''main method including variables'''
+    def __init__(self):
+        self.keypad = Keypad()
+        self.LED = LED_board()
+        self.passcode_buffer = ''
+        self.path_password = '\Keypad\password.txt' #idk bare fant på noe må fikses
+        self.override_signal = None
+        self.LED_id = ''
+        self.LED_duration = ''
+        self.new_pass = ''
+        self.new_pass_check = ''
+
 
 
     def int_passcode_entry(self):
