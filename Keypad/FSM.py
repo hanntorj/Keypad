@@ -6,7 +6,7 @@ class FSM:
         self.state = "INIT"
         self.state = "DONE"
         self.rules = [] #er dette liste over reglene vi legger til? Ja, tenker det foreløpig
-        switch = {
+        self.switch = {
             1: "INIT",
             2: "READ",
             3: "VERIFY",
