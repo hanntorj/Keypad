@@ -2,9 +2,10 @@ from KPC_agent import *
 
 
 class FSM:
-    def __init__(self):
+    def __init__(self, KPC_agent):
         self.state = "INIT"
         self.state = "DONE"
+        self.agent = KPC_agent
         self.rules = [] #er dette liste over reglene vi legger til? Ja, tenker det foreløpig
         self.switch = {
             1: "INIT",
@@ -26,6 +27,9 @@ class FSM:
 
     def get_next_signal(self):
         """query the agent for the next signal"""
+        new_signal = self.agent.get_next_signal()
+        # If-setninger her for å sjekke om signal er tomt, eller ta dette i main-loop?
+        return new_signal
 
     def run_rules(self, signal):
         """go through the rule set, in order, applying each rule until one of the rules is fired"""
@@ -72,3 +76,4 @@ class Rule:
 
     def get_action(self):
         """Get-funksjon for handling til regelen"""
+        return self.action
