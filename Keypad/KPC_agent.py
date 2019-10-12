@@ -1,6 +1,8 @@
 from Keypad import *
 from FSM import *
-from LED_board import *
+
+
+# from LED_board import *
 
 
 class KPC:
@@ -10,7 +12,7 @@ class KPC:
         self.keypad = Keypad()
         self.LED = LED_board()
         self.passcode_buffer = ''
-        self.path_password = 'password.txt'  # idk bare fant på noe må fikses/funker det ikke bare å bruke .\pass... for å vise til at det er i samme mappe?
+        self.path_password = 'password.txt'
         self.override_signal = None
         self.password = ''
         self.LED_id = ''
@@ -20,7 +22,7 @@ class KPC:
         f = open(self.path_password)
         try:
             self.password = f.read().strip()
-        except Exception:
+        except IOError:
             print("Could not set password")
         finally:
             f.close()
@@ -39,6 +41,7 @@ class KPC:
     def validate_passcode_change(self):
         """check if new password is legal. if so write to password file.
         Password: 4 digits or more, only digits 0-9. call LED board for fail or pass lighting """
+        # Tre rød LEDs for fail og tre grønne for pass?
         if self.new_pass == self.new_pass_check:
             self.password = self.new_pass
             # TODO twinkle LEDs for passing
@@ -51,6 +54,7 @@ class KPC:
     def light_one_led(self):
         """Using values stored in the Lid and Ldur slots, call the LED Board and request that LED # Lid be turned on
         for Ldur seconds """
+        self.LED.light_single_led(int(self.LED_id), self.LED_duration)  # Usikker på om LED_id må castes til int
 
     def flash_led(self):
         """call LED board and request flashing og LEDs"""
@@ -62,3 +66,12 @@ class KPC:
 
     def exit_action(self):
         """call LED board to initiate power down LEDs"""
+        # Lagrer passord i filen når keypad-en slås av
+        f = open(self.path_password, "w")
+        try:
+            self.password
+        except IOError:
+            print("Couldn't save password in respective file")
+        finally:
+            f.close()
+        # TODO twinkle LEDs to signal powering down
