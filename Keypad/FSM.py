@@ -1,11 +1,11 @@
 from KPC_agent import *
+from KPC_agent import KPC
 
 class FSM:
     """Klasse for finite state machine"""
 
     def __init__(self, agent):
         self.state = "INIT"
-        self.state = "DONE"
         self.agent = agent
         self.rules = []  # er dette liste over reglene vi legger til? Ja, tenker det foreløpig
         self.switch = {
@@ -21,6 +21,7 @@ class FSM:
             10: "DONE",
         }
         self.signal = None
+        self.add_rule(self.switch[1], self.switch[2], FSM.all, agent.init_passcode_entry)
 
     def add_rule(self, state1, state2, condition, action):
         """add a new rule to the end of the FSM's rule list"""
@@ -52,6 +53,7 @@ class FSM:
         """begin in the FSM's default initial state and then repeatedly call get_next_signal
         and run_rules until the FSM enters its default final stat"""
         
+
 
 class Rule:
     """Rule object for implementing a RBS"""
