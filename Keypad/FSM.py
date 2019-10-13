@@ -1,18 +1,11 @@
 from KPC_agent import *
 
-class Rule:
-    '''The rule class, which sets what conditions must be met when FSM switches
-    states, and which '''
-    def __init__(self, state1, state2, signal, action):
-        self.state1 = state1
-        self.state2 = state2
-        self.signal = signal
-        self.action = action
-
 class FSM:
-    def __init__(self):
+    def __init__(self, agent):
+        self.state = "INIT"
         self.state = "DONE"
-        self.rules = []
+        self.agent = agent
+        self.rules = [] #er dette liste over reglene vi legger til? Ja, tenker det foreløpig
         self.switch = {
             1: "INIT",
             2: "READ",
@@ -26,40 +19,39 @@ class FSM:
             10: "DONE",
         }
 
-    '''def switch(self, argument):
-        switch = {
-            1: "INIT",
-            2: "READ",
-            3: "VERIFY",
-            4: "ACTIVE",
-            5: "LED",
-            6: "TIME",
-            7: "READ2",
-            8: "READ3",
-            9: "LOGOUT",
-            10: "DONE",
-        }'''
-
-    def add_rule(self, state1, state2, input, action):
-        ''''add a new rule to the end of the FSM's rule list'''
-
-
+    def add_rule(self, state1, state2, condition, action):
+        """add a new rule to the end of the FSM's rule list"""
+        rule = Rule(state1, state2, condition, action)
+        self.rules.append(rule)
 
     def get_next_signal(self):
-        '''query the agent for the next signal'''
+        """query the agent for the next signal"""
+        new_signal = self.agent.get_next_signal()
+        # If-setninger her for å sjekke om signal er tomt, eller ta dette i main-loop?
+        return new_signal
 
-    def run_rules(self):
-        '''go through the rule set, in order, applying each rule until one of the rules is fired'''
+    def run_rules(self, signal):
+        """go through the rule set, in order, applying each rule until one of the rules is fired"""
+        for rule in self.rules:
+            if self.apply_rule(signal, rule):
+                self.fire_rule(rule)
+                return
 
-    def apply_rule(self):
-        '''check whether the conditions of a rule are met'''
+    def apply_rule(self, signal, rule):
+        """check whether the conditions of a rule are met"""
+        if rule.get_condition() == signal:
+            return True
+        return False
 
-    def fire_rule(self):
-        '''use the consequent of a rule to a) set the next state to FSM and b) call the appropriate agent action method'''
+    def fire_rule(self, rule):
+        """use the consequent of a rule to a) set the next state to FSM
+        and b) call the appropriate agent action method"""
+        old_state, new_state = rule.get_states()
+        #TODO gjennomfør rule.get_action()
+        self.state = new_state
+
 
     def main_loop(self):
-        '''begin in the FSM's default initial state and then repeatedly call get_next_signal and run_rules until the FSM enters its default final stat'''
+        """begin in the FSM's default initial state and then repeatedly call get_next_signal
+        and run_rules until the FSM enters its default final stat"""
 
-'''
-
-'''

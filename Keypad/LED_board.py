@@ -2,9 +2,9 @@ import RPi.GPIO as GPIO
 from time import sleep, time
 
 class LED_board:
-    '''charlieplexed LED board'''
+    """charlieplexed LED board"""
     #def setup(self):
-    #    '''set teh proper mode'''
+    #    '''set the proper mode'''
     def __init__(self):
         self.pins = [4, 5, 12]
         self.pin_led_states = [
@@ -24,6 +24,7 @@ class LED_board:
         else:
             GPIO.setup(self.pins[pin_index], GPIO.OUT)
             GPIO.output(self.pins[pin_index], pin_state)
+
 
     def light_single_led(self, led_number, duration=0.5):
         '''Turn on the given led with an optional argument of time, and turn it off again.'''
@@ -54,9 +55,9 @@ class LED_board:
         '''Led pattern that should show when an unsuccessful login attempt is made'''
         self.flash_all_leds(2)
 
+
     def led_login_successful(self):
         '''Led pattern that should show when a successful login attempt is made'''
-
         self.twinkle_all_leds(2)
 
     def led_power_down(self):
