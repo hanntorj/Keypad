@@ -60,9 +60,9 @@ class KPC:
         """call LED board and request flashing og LEDs"""
         self.LED.flash_all_leds
 
-    def twinkle_led(self, duration):
+    def twinkle_led(self):
         """call LED board and request twinkling og LEDs"""
-        self.LED.twinkle_all_leds(duration)
+        self.LED.twinkle_all_leds(self.LED_duration)
 
     def exit_action(self):
         """call LED board to initiate power down LEDs"""
