@@ -1,5 +1,14 @@
 from KPC_agent import *
 
+class Rule:
+    '''The rule class, which sets what conditions must be met when FSM switches
+    states, and which '''
+    def __init__(self, state1, state2, signal, action):
+        self.state1 = state1
+        self.state2 = state2
+        self.signal = signal
+        self.action = action
+
 class FSM:
     def __init__(self):
         self.state = "DONE"
