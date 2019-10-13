@@ -25,6 +25,7 @@ class FSM:
             12: "TIME"
         }
         self.signal = None
+        self.setup_rules()
 
     def setup_rules(self):
         """Metode som legger til alle reglene"""
@@ -118,5 +119,4 @@ class Rule:
         :return: boolean
         """
         return self.state1 == state and signal in self.condition
-
-print(FSM.all[2:7])
+    
