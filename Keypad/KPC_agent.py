@@ -12,7 +12,7 @@ class KPC:
         self.keypad = Keypad()
         self.LED = LED_board()
         self.passcode_buffer = ''
-        self.digit=''
+        self.digit = ''
         self.path_password = 'password.txt'
         self.override_signal = None
         self.LED_id = ''
@@ -36,15 +36,15 @@ class KPC:
         """return the override-signal, if its non-blank. else query keypad for next pressed key"""
         if self.override_signal != '':
             return self.override_signal
-        self.digit = self.keypad.get_next_signal() #snakk med simen hva denne returnerer så det passer
+        # snakk med simen hva denne returnerer så det passer
+        self.digit = self.keypad.get_next_signal()
         return self.digit
 
     def append_password_buffer(self):
         """Appends password with newly pressed digit"""
         self.password_buffer += self.digit
 
-
-    def get_password():
+    def get_password(self):
         """Import password from file"""
         with open(self.path_password, 'r') as file:
             password = file.readlines().strip()
@@ -58,9 +58,9 @@ class KPC:
             print('correct password')
         else:
             self.override_signal = 'N'
-        self.password_buffer() = ''
+        self.password_buffer = ''
 
-    def validate_passcode_change(self): #ikke fullført
+    def validate_passcode_change(self):  # ikke fullført
         """check if new password is legal. if so write to password file.
         Password: 4 digits or more, only digits 0-9. call LED board for fail or pass lighting """
         # Tre rød LEDs for fail og tre grønne for pass?
@@ -74,14 +74,15 @@ class KPC:
 
     def set_password(self):
         """stores new password in password file"""
-        #må vi slette passordet på begynnelsen?
+        # må vi slette passordet på begynnelsen?
         with open(self.path_password, 'w') as file:
-            file.write(password)
+            file.write(self.password)
 
-    def light_one_led(self): #trenger vi denne?????
+    def light_one_led(self):  # trenger vi denne?????
         """Using values stored in the Lid and Ldur slots, call the LED Board and request that LED # Lid be turned on
         for Ldur seconds """
-        self.LED.light_single_led(int(self.LED_id), self.LED_duration)  # Usikker på om LED_id må castes til int
+        self.LED.light_single_led(
+            int(self.LED_id), self.LED_duration)  # Usikker på om LED_id må castes til int
 
     def flash_led(self):
         """call LED board and request flashing og LEDs"""
@@ -99,8 +100,7 @@ class KPC:
         self.LED_id = ''
         self.LED_duration = ''
 
-
-    def power_down(self): #hanna skjønner ikke helt denne her
+    def power_down(self):  # hanna skjønner ikke helt denne her
         """Close file and call LED board to initiate power down LEDs"""
         # Lagrer passord i filen når keypad-en slås av
         f = open(self.path_password, "w")
