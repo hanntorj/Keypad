@@ -1,6 +1,5 @@
 from KPC_agent import *
 
-
 class FSM:
     def __init__(self, agent):
         self.state = "INIT"
@@ -56,30 +55,3 @@ class FSM:
         """begin in the FSM's default initial state and then repeatedly call get_next_signal
         and run_rules until the FSM enters its default final stat"""
 
-class Rule:
-    """Rule object for implementing a RBS"""
-
-    def __init__(self, state1, state2, condition, action):
-        """
-        Konstruktør for klassen
-        :param state1: Tilstand som FSM skal være i for at regelen skal utføres
-        :param state2: Tilstand som FSM skal sendes til etter regelen er utført
-        :param condition: Input fra Keypad for at regelen skal utførses
-        :param action: Handling som skjer dersom condtions er møtt
-        """
-        self.state1 = state1
-        self.state2 = state2
-        self.condition = condition
-        self.action = action
-
-    def get_condition(self):
-        """Get-funksjon for condition til regelen"""
-        return self.condition
-
-    def get_states(self):
-        """Get-funksjon som returnerer state1 og state2 som en tuple"""
-        return self.state1, self.state2
-
-    def get_action(self):
-        """Get-funksjon for handling til regelen"""
-        return self.action
