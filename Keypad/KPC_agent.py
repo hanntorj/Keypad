@@ -94,6 +94,11 @@ class KPC:
     def reset_variables(self):
         self.passcode_buffer = ''
         self.override_signal = None
+        self.new_pass = ''
+        self.new_pass_check = ''
+        self.LED_id = ''
+        self.LED_duration = ''
+
 
     def power_down(self): #hanna skjønner ikke helt denne her
         """Close file and call LED board to initiate power down LEDs"""
