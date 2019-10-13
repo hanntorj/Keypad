@@ -75,6 +75,16 @@ class LED_board:
             self.light_single_led(5, 0.2)
             self.light_single_led(6, 0.2)
 
+    def led_pass_change_successful(self):
+        self.twinkle_all_leds(1)
+        self.flash_all_leds(1)
+
+    def led_pass_change_unsuccessful(self):
+        stop_time = time() + 2
+        while time() <= stop_time:
+            self.light_single_led(5, 0.1)
+            self.light_single_led(6, 0.1)
+
     def led_reset(self):
         """Assisting method for resetting the pins to an "off" state"""
         for led_number in range(0, 3):
