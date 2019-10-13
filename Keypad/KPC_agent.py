@@ -11,14 +11,16 @@ class KPC:
     def __init__(self):
         self.keypad = Keypad()
         self.LED = LED_board()
-        self.passcode_buffer = ''
-        self.digit=''
+        self.password = ''
         self.path_password = 'password.txt'
+        self.passcode_buffer = ''
+        self.new_pass = ''
+        self.new_pass_check = ''
+        self.digit=''
         self.override_signal = None
         self.LED_id = ''
         self.LED_duration = ''
-        self.new_pass = ''
-        self.new_pass_check = ''
+
         f = open(self.path_password)
         try:
             self.password = f.read().strip()
@@ -42,7 +44,18 @@ class KPC:
     def append_password_buffer(self):
         """Appends password with newly pressed digit"""
         self.password_buffer += self.digit
+        self.digit = ''
 
+
+    def append_new_pass(self):
+        """Appends password with newly pressed digit"""
+        self.new_pass += self.digit
+        self.digit = ''
+
+    def append_new_pass_check(self):
+        """Appends password with newly pressed digit"""
+        self.new_pass_check += self.digit
+        self.digit = ''
 
     def get_password():
         """Import password from file"""
@@ -60,7 +73,7 @@ class KPC:
             self.override_signal = 'N'
         self.password_buffer() = ''
 
-    def validate_passcode_change(self): #ikke fullført
+    def validate_password_change(self): #vet ikke greia med denne
         """check if new password is legal. if so write to password file.
         Password: 4 digits or more, only digits 0-9. call LED board for fail or pass lighting """
         # Tre rød LEDs for fail og tre grønne for pass?
@@ -91,9 +104,19 @@ class KPC:
         """call LED board and request twinkling og LEDs"""
         self.LED.twinkle_all_leds(duration)
 
-    def reset_variables(self):
+    def reset_all_variables(self):
+        """Resets all variables"""
         self.passcode_buffer = ''
         self.override_signal = None
+        self.new_pass = ''
+        self.new_pass_check = ''
+        self.LED_id = ''
+        self.LED_duration = ''
+
+    def reset_after_pass_input(self):
+        """resets after pass input"""
+        self.override_signal=''
+        self.password_buffer = ''
 
     def power_down(self): #hanna skjønner ikke helt denne her
         """Close file and call LED board to initiate power down LEDs"""
@@ -105,4 +128,5 @@ class KPC:
             print("Couldn't save password in respective file")
         finally:
             f.close()
+        self.reset_all_variables()
         self.LED.led_power_down()
