@@ -1,7 +1,6 @@
 from KPC_agent import *
 from KPC_agent import KPC
 
-
 class FSM:
     """Klasse for finite state machine"""
 
@@ -53,7 +52,7 @@ class FSM:
     def main_loop(self):
         """begin in the FSM's default initial state and then repeatedly call get_next_signal
         and run_rules until the FSM enters its default final stat"""
-
+        
 
 
 class Rule:
@@ -80,3 +79,4 @@ class Rule:
         :return: boolean
         """
         return self.state1 == state and signal in self.signal
+
