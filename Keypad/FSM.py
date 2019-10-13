@@ -2,11 +2,13 @@ from KPC_agent import *
 
 
 class FSM:
+    """Klasse for finite state machine"""
+
     def __init__(self, agent):
         self.state = "INIT"
         self.state = "DONE"
         self.agent = agent
-        self.rules = [] #er dette liste over reglene vi legger til? Ja, tenker det foreløpig
+        self.rules = []  # er dette liste over reglene vi legger til? Ja, tenker det foreløpig
         self.switch = {
             1: "INIT",
             2: "READ",
@@ -19,6 +21,7 @@ class FSM:
             9: "LOGOUT",
             10: "DONE",
         }
+        self.signal = None
 
     def add_rule(self, state1, state2, condition, action):
         """add a new rule to the end of the FSM's rule list"""
@@ -27,34 +30,29 @@ class FSM:
 
     def get_next_signal(self):
         """query the agent for the next signal"""
-        new_signal = self.agent.get_next_signal()
-        # If-setninger her for å sjekke om signal er tomt, eller ta dette i main-loop?
-        return new_signal
+        self.signal = self.agent.get_next_signal()
 
     def run_rules(self, signal):
         """go through the rule set, in order, applying each rule until one of the rules is fired"""
         for rule in self.rules:
             if self.apply_rule(signal, rule):
                 self.fire_rule(rule)
-                return
+                break
 
     def apply_rule(self, signal, rule):
         """check whether the conditions of a rule are met"""
-        if rule.get_condition() == signal:
-            return True
-        return False
+        return rule.check_rule(self.state, signal)
 
     def fire_rule(self, rule):
         """use the consequent of a rule to a) set the next state to FSM
         and b) call the appropriate agent action method"""
-        old_state, new_state = rule.get_states()
-        #TODO gjennomfør rule.get_action()
-        self.state = new_state
-
+        self.state = rule.state2
+        rule.action()
 
     def main_loop(self):
         """begin in the FSM's default initial state and then repeatedly call get_next_signal
         and run_rules until the FSM enters its default final stat"""
+
 
 class Rule:
     """Rule object for implementing a RBS"""
@@ -72,14 +70,11 @@ class Rule:
         self.condition = condition
         self.action = action
 
-    def get_condition(self):
-        """Get-funksjon for condition til regelen"""
-        return self.condition
-
-    def get_states(self):
-        """Get-funksjon som returnerer state1 og state2 som en tuple"""
-        return self.state1, self.state2
-
-    def get_action(self):
-        """Get-funksjon for handling til regelen"""
-        return self.action
+    def check_rule(self, state, signal):
+        """
+        Metode som sjekker om en regel skal fyres eller ikke
+        :param state: str?
+        :param signal: str
+        :return: boolean
+        """
+        return self.state1 == state and signal in self.signal
