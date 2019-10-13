@@ -60,7 +60,13 @@ class Rule:
     """Rule object for implementing a RBS"""
 
     def __init__(self, state1, state2, condition, action):
-        """Konstruktør for regel-klassen"""
+        """
+        Konstruktør for klassen
+        :param state1: Tilstand som FSM skal være i for at regelen skal utføres
+        :param state2: Tilstand som FSM skal sendes til etter regelen er utført
+        :param condition: Input fra Keypad for at regelen skal utførses
+        :param action: Handling som skjer dersom condtions er møtt
+        """
         self.state1 = state1
         self.state2 = state2
         self.condition = condition
