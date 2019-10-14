@@ -14,9 +14,14 @@ class KPC:
         self.password = ''
         self.path_password = 'password.txt'
         self.passcode_buffer = ''
+<<<<<<< HEAD
         self.new_pass = ''
         self.new_pass_check = ''
         self.digit=''
+=======
+        self.digit = ''
+        self.path_password = 'password.txt'
+>>>>>>> 999b34dd68f34725879f4cb7a76ee310a7116896
         self.override_signal = None
         self.LED_id = ''
         self.LED_duration = ''
@@ -38,7 +43,8 @@ class KPC:
         """return the override-signal, if its non-blank. else query keypad for next pressed key"""
         if self.override_signal != '':
             return self.override_signal
-        self.digit = self.keypad.get_next_signal() #snakk med simen hva denne returnerer så det passer
+        # snakk med simen hva denne returnerer så det passer
+        self.digit = self.keypad.get_next_signal()
         return self.digit
 
     def append_password_buffer(self):
@@ -47,6 +53,7 @@ class KPC:
         self.digit = ''
 
 
+<<<<<<< HEAD
     def append_new_pass(self):
         """Appends password with newly pressed digit"""
         self.new_pass += self.digit
@@ -58,6 +65,9 @@ class KPC:
         self.digit = ''
 
     def get_password():
+=======
+    def get_password(self):
+>>>>>>> 999b34dd68f34725879f4cb7a76ee310a7116896
         """Import password from file"""
         with open(self.path_password, 'r') as file:
             password = file.readlines().strip()
@@ -71,9 +81,13 @@ class KPC:
             print('correct password')
         else:
             self.override_signal = 'N'
-        self.password_buffer() = ''
+        self.password_buffer = ''
 
+<<<<<<< HEAD
     def validate_password_change(self): #vet ikke greia med denne
+=======
+    def validate_passcode_change(self):  # ikke fullført
+>>>>>>> 999b34dd68f34725879f4cb7a76ee310a7116896
         """check if new password is legal. if so write to password file.
         Password: 4 digits or more, only digits 0-9. call LED board for fail or pass lighting """
         # Tre rød LEDs for fail og tre grønne for pass?
@@ -87,22 +101,23 @@ class KPC:
 
     def set_password(self):
         """stores new password in password file"""
-        #må vi slette passordet på begynnelsen?
+        # må vi slette passordet på begynnelsen?
         with open(self.path_password, 'w') as file:
-            file.write(password)
+            file.write(self.password)
 
-    def light_one_led(self): #trenger vi denne?????
+    def light_one_led(self):  # trenger vi denne?????
         """Using values stored in the Lid and Ldur slots, call the LED Board and request that LED # Lid be turned on
         for Ldur seconds """
-        self.LED.light_single_led(int(self.LED_id), self.LED_duration)  # Usikker på om LED_id må castes til int
+        self.LED.light_single_led(
+            int(self.LED_id), self.LED_duration)  # Usikker på om LED_id må castes til int
 
     def flash_led(self):
         """call LED board and request flashing og LEDs"""
         self.LED.flash_all_leds
 
-    def twinkle_led(self, duration):
+    def twinkle_led(self):
         """call LED board and request twinkling og LEDs"""
-        self.LED.twinkle_all_leds(duration)
+        self.LED.twinkle_all_leds(self.LED_duration)
 
     def reset_all_variables(self):
         """Resets all variables"""
@@ -112,13 +127,16 @@ class KPC:
         self.new_pass_check = ''
         self.LED_id = ''
         self.LED_duration = ''
+<<<<<<< HEAD
 
     def reset_after_pass_input(self):
         """resets after pass input"""
         self.override_signal=''
         self.password_buffer = ''
+=======
+>>>>>>> 999b34dd68f34725879f4cb7a76ee310a7116896
 
-    def power_down(self): #hanna skjønner ikke helt denne her
+    def power_down(self):  # hanna skjønner ikke helt denne her
         """Close file and call LED board to initiate power down LEDs"""
         # Lagrer passord i filen når keypad-en slås av
         f = open(self.path_password, "w")

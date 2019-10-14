@@ -21,8 +21,48 @@ class FSM:
             8: "READ3",
             9: "LOGOUT",
             10: "DONE",
+            11: "LED",
+            12: "TIME"
         }
         self.signal = None
+        self.setup_rules()
+
+    def setup_rules(self):
+        """Metode som legger til alle reglene"""
+        # Pålogging initialisering
+        self.add_rule(self.switch[1], self.switch[2], FSM.all, self.agent.init_passcode_entry)
+
+        # Lesing av passord (READ -> READ/VERIFY/INIT)
+        self.add_rule(self.switch[2], self.switch[2], FSM.all[2:], self.agent.append_password_buffer)
+        self.add_rule(self.switch[2], self.switch[3], FSM.all[1], self.agent.verify_login)
+        self.add_rule(self.switch[2], self.switch[1], FSM.all, self.agent.reset_all_variables)
+
+        # Verifisering av passord (VERIFY -> ACTIVE/INIT)
+        self.add_rule(self.switch[3], self.switch[4], "Y", self.agent.init_passcode_entry)
+        self.add_rule(self.switch[3], self.switch[1], FSM.all, self.agent.init_passcode_entry)
+
+        # Powerdown prosess
+        self.add_rule(self.switch[4], self.switch[9], FSM.all[0], self.agent.nothing)
+        self.add_rule(self.switch[9], self.switch[1], FSM.all[0], self.agent.power_down)
+        self.add_rule(self.switch[1], self.switch[2], FSM.all, self.agent.nothing)
+
+        # Forandring av passord:
+        self.add_rule(self.switch[4], self.switch[7], FSM.all[1], self.agent.nothing)
+        self.add_rule(self.switch[4], self.switch[4], FSM.all, self.agent.nothing)
+        self.add_rule(self.switch[7], self.switch[7], FSM.all[2:], self.agent.append_new_pass)
+        self.add_rule(self.switch[7], self.switch[4], FSM.all[0], self.agent.reset_all_variables)
+        self.add_rule(self.switch[7], self.switch[8], FSM.all[1], self.agent.nothing)
+        self.add_rule(self.switch[8], self.switch[8], FSM.all[2:], self.agent.append_new_pass_check)
+        self.add_rule(self.switch[8], self.switch[4], FSM.all[1], self.agent.validate_password_change)
+        self.add_rule(self.switch[8], self.switch[4], FSM.all[0], self.agent.reset_all_variables)
+
+        # Opplysing av LEDS
+        self.add_rule(self.switch[4], self.switch[11], FSM.all[2:8], self.agent.set_led)
+        self.add_rule(self.switch[11], self.switch[12], FSM.all[1], self.agent.nothing)
+        self.add_rule(self.switch[11], self.switch[4], FSM.all, self.agent.reset_all_variables)
+        self.add_rule(self.switch[12], self.switch[12], FSM.all[2:], self.agent.append_Ldur)
+        self.add_rule(self.switch[12], self.switch[4], FSM.all[1], self.agent.light_one_led)
+        self.add_rule(self.switch[12], self.switch[4], FSM.all, self.agent.reset_all_variables)
 
     def add_rule(self, state1, state2, condition, action):
         """add a new rule to the end of the FSM's rule list"""
@@ -79,3 +119,4 @@ class Rule:
         :return: boolean
         """
         return self.state1 == state and signal in self.condition
+    
