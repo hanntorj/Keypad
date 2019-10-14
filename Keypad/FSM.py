@@ -10,6 +10,7 @@ class FSM:
 
     def __init__(self, agent):
         """Initializer for the FSM class."""
+        self.run = None
         self.state = "INIT"
         self.agent = agent
         self.rules = []  # er dette liste over reglene vi legger til? Ja, tenker det foreløpig
