@@ -2,13 +2,16 @@ from Keypad import *
 from FSM import *
 
 
-# from LED_board import *
+#from LED_board import *
+from Keypad.LED_board import LED_board
+from Keypad.keypad import Keypad
 
 
 class KPC:
     """main method including variables"""
 
     def __init__(self):
+        """Initialiser, setting the initializer"""
         self.keypad = Keypad()
         self.LED = LED_board()
         self.passcode_buffer = ''
@@ -36,7 +39,6 @@ class KPC:
         """return the override-signal, if its non-blank. else query keypad for next pressed key"""
         if self.override_signal != '':
             return self.override_signal
-        # snakk med simen hva denne returnerer så det passer
         self.digit = self.keypad.get_next_signal()
         return self.digit
 
@@ -44,17 +46,11 @@ class KPC:
         """Appends password with newly pressed digit"""
         self.password_buffer += self.digit
 
-    def get_password(self):
-        """Import password from file"""
-        with open(self.path_password, 'r') as file:
-            password = file.readlines().strip()
-            return password
-
     def verify_login(self):
-        """check password. store as Y or N in the override-signal. call LED board for fail or pass lighting"""
-        if self.passcode_buffer == self.get_password():
+        """Checks the password. store as Y or N(Yes or No) in the override-signal. call LED board for fail or pass lighting"""
+        if self.passcode_buffer == self.password:
             self.override_signal = 'Y'
-            self.led_board.led_login_successful()
+            self.LED.led_login_successful()
             print('correct password')
         else:
             self.override_signal = 'N'
@@ -68,7 +64,7 @@ class KPC:
             self.password = self.new_pass
             self.LED.led_pass_change_successful()
         else:
-            self.LED.led_pass_change_fail()
+            self.LED.led_pass_change_unsuccessful()
         self.new_pass = ''
         self.new_pass_check = ''
 
@@ -86,7 +82,7 @@ class KPC:
 
     def flash_led(self):
         """call LED board and request flashing og LEDs"""
-        self.LED.flash_all_leds
+        self.LED.flash_all_leds()
 
     def twinkle_led(self):
         """call LED board and request twinkling og LEDs"""
