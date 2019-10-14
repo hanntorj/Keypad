@@ -4,9 +4,11 @@ from time import sleep
 import RPi.GPIO as GPIO
 
 class Keypad:
-    """Keypad"""
+    """Keypad class"""
 
     def __init__(self):
+        """The initializer method, which sets the rows and columns of our pins, and the possible inputs of the keypad.
+        Also runs the setup method."""
         self.rows = [18, 23, 24, 25]
         self.cols = [17, 27, 22]
         self.keypad = [
@@ -18,7 +20,7 @@ class Keypad:
         self.setup()
 
     def setup(self):
-        """Set the proper mode"""
+        """Sets the proper mode for the pins."""
         GPIO.setmode(GPIO.BCM)
         for rowp in self.rows:
             GPIO.setup(rowp, GPIO.OUT)
@@ -49,6 +51,7 @@ class Keypad:
 
     def get_symbol(self, row, col):
         """
+        Method for fetching the input, based on the rows and columns
         Metode for å hente tegn basert på rad og kolonne
         :param row: int
         :param col: int
