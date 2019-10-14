@@ -119,4 +119,3 @@ class Rule:
         :return: boolean
         """
         return self.state1 == state and signal in self.condition
-    
