@@ -44,6 +44,14 @@ class KPC:
         """Appends password with newly pressed digit"""
         self.password_buffer += self.digit
 
+    def append_Ldur(self):
+        """Appends digit to time-variable"""
+        self.LED_duration += self.digit
+
+    def set_led(self):
+        """Sets the Lpin"""
+        self.LED_id = self.digit
+
     def get_password(self):
         """Import password from file"""
         with open(self.path_password, 'r') as file:
