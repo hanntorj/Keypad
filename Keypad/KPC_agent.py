@@ -46,6 +46,20 @@ class KPC:
         """Appends password with newly pressed digit"""
         self.password_buffer += self.digit
 
+    def append_Ldur(self):
+        """Appends digit to time-variable"""
+        self.LED_duration += self.digit
+
+    def set_led(self):
+        """Sets the Lpin"""
+        self.LED_id = self.digit
+
+    def get_password(self):
+        """Import password from file"""
+        with open(self.path_password, 'r') as file:
+            password = file.readlines().strip()
+            return password
+
     def verify_login(self):
         """Checks the password. store as Y or N(Yes or No) in the override-signal. call LED board for fail or pass lighting"""
         if self.passcode_buffer == self.password:
