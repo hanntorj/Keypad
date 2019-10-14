@@ -5,7 +5,7 @@ AGENT = KPC()
 FSM = FSM(AGENT)
 
 while FSM.run:
-    print(FSM.current_state)
-    print(AGENT.cump)
+    print(FSM.state)
+    print(AGENT.passcode_buffer)
     FSM.get_next_signal()
-    FSM.run_rules()
+    FSM.setup_rules()
