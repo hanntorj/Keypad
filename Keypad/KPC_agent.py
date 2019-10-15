@@ -10,9 +10,9 @@ class KPC:
         self.keypad = Keypad()
         self.LED = LED_board()
         self.passcode_buffer = ''
-        self.digit = ''
+        self.digit = '0q'
         self.path_password = 'password.txt'
-        self.override_signal = None
+        self.override_signal = ''
         self.LED_id = ''
         self.LED_duration = ''
         self.new_pass = ''
@@ -25,7 +25,7 @@ class KPC:
         finally:
             f.close()
 
-    def int_passcode_entry(self):
+    def init_passcode_entry(self):
         """clear passcode buffer and initiate a power up lighting sequence"""
         self.passcode_buffer = ''
         self.LED.led_power_up()
@@ -40,6 +40,16 @@ class KPC:
     def append_password_buffer(self):
         """Appends password with newly pressed digit"""
         self.password_buffer += self.digit
+
+    def append_new_pass(self):
+        """Appends password with newly pressed digit"""
+        self.new_pass += self.digit
+        self.digit = ''
+
+    def append_new_pass_check(self):
+        """Appends password with newly pressed digit"""
+        self.new_pass_check += self.digit
+        self.digit = ''
 
     def append_Ldur(self):
         """Appends digit to time-variable"""
@@ -91,7 +101,7 @@ class KPC:
         """call LED board and request twinkling og LEDs"""
         self.LED.twinkle_all_leds(self.LED_duration)
 
-    def reset_variables(self):
+    def reset_all_variables(self):
         self.passcode_buffer = ''
         self.override_signal = None
         self.new_pass = ''
@@ -110,3 +120,6 @@ class KPC:
         finally:
             f.close()
         self.LED.led_power_down()
+
+    def nothing(self):
+        pass

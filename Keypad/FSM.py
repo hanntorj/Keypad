@@ -1,5 +1,6 @@
 """Package for finite state machine"""
 from KPC_agent import *
+import pdb
 
 """"""
 
@@ -10,7 +11,7 @@ class FSM:
 
     def __init__(self, agent):
         """Initializer for the FSM class."""
-        self.run = None
+        self.run = True
         self.state = "INIT"
         self.agent = agent
         self.rules = []
@@ -63,7 +64,7 @@ class FSM:
         self.add_rule(self.switch[7], self.switch[4], FSM.all[0], self.agent.reset_all_variables)
         self.add_rule(self.switch[7], self.switch[8], FSM.all[1], self.agent.nothing)
         self.add_rule(self.switch[8], self.switch[8], FSM.all[2:], self.agent.append_new_pass_check)
-        self.add_rule(self.switch[8], self.switch[4], FSM.all[1], self.agent.validate_password_change)
+        self.add_rule(self.switch[8], self.switch[4], FSM.all[1], self.agent.validate_passcode_change)
         self.add_rule(self.switch[8], self.switch[4], FSM.all[0], self.agent.reset_all_variables)
 
         # Opplysing av LEDS

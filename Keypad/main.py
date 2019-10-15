@@ -1,12 +1,14 @@
 from FSM import FSM
 from KPC_agent import KPC
+import pdb
 
 
 if __name__ == "__main__":
     AGENT = KPC()
-    FSM = FSM(AGENT)
-    while FSM.run:
-        print(FSM.state)
-        print(AGENT.passcode_buffer)
-        FSM.get_next_signal()
-        FSM.setup_rules()
+    fsm = FSM(AGENT)
+    fsm.setup_rules()
+    while fsm.run:
+        print(fsm.state)
+        #print(AGENT.passcode_buffer)
+        pdb.set_trace()
+        fsm.get_next_signal()
