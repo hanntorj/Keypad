@@ -1,10 +1,5 @@
-from Keypad import *
-from FSM import *
-
-
-#from LED_board import *
-from Keypad.LED_board import LED_board
-from Keypad.keypad import Keypad
+from LED_board import LED_board
+from keypad import Keypad
 
 
 class KPC:
