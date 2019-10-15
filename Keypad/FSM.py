@@ -7,7 +7,7 @@ import pdb
 
 class FSM:
     """Klasse for finite state machine"""
-    all = "#*0123456789"
+    all = '#*0123456789'
 
     def __init__(self, agent):
         """Initializer for the FSM class."""
@@ -29,7 +29,7 @@ class FSM:
             11: "LED",
             12: "TIME"
         }
-        self.signal = None
+        self.signal = ''
         self.setup_rules()
 
     def setup_rules(self):
@@ -88,6 +88,7 @@ class FSM:
     def get_next_signal(self):
         """query the agent for the next signal"""
         self.signal = self.agent.get_next_signal()
+        return self.signal
 
     def run_rules(self, signal):
         """go through the rule set, in order, applying each rule until one of the rules is fired"""
@@ -134,4 +135,5 @@ class Rule:
         :param signal: str
         :return: boolean
         """
-        return self.state1 == state and signal in self.condition
+        # pdb.set_trace()
+        return (self.state1 == state) and (signal in self.condition)

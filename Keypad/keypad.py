@@ -1,6 +1,7 @@
 """Klasse for keypad til prosjekt 5 - TDT4113"""
 from time import sleep
 import RPi.GPIO as GPIO
+import pdb
 
 class Keypad:
     """Keypad class"""

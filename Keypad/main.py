@@ -10,5 +10,6 @@ if __name__ == "__main__":
     while fsm.run:
         print(fsm.state)
         #print(AGENT.passcode_buffer)
-        pdb.set_trace()
-        fsm.get_next_signal()
+        # pdb.set_trace()
+        signal = fsm.get_next_signal()
+        fsm.run_rules(signal)

@@ -10,7 +10,7 @@ class KPC:
         self.keypad = Keypad()
         self.LED = LED_board()
         self.passcode_buffer = ''
-        self.digit = '0q'
+        self.digit = ''
         self.path_password = 'password.txt'
         self.override_signal = ''
         self.LED_id = ''

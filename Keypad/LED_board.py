@@ -1,6 +1,6 @@
 from time import sleep, time
 import RPi.GPIO as GPIO
-
+import pdb
 
 
 class LED_board:
@@ -9,7 +9,7 @@ class LED_board:
     #    '''set the proper mode'''
 
     def __init__(self):
-        self.pins = [4, 5, 12]
+        self.pins = [12,20,21]
         self.pin_led_states = [
             [1, 0, -1],  # State A
             [0, 1, -1],  # State B
@@ -29,6 +29,7 @@ class LED_board:
             GPIO.output(self.pins[pin_index], pin_state)
 
     def light_single_led(self, led_number, duration=0.5):
+        pdb.set_trace()
         """Turn on the given led with an optional argument of time, and turn it off again."""
         for pin_index, pin_state in enumerate(self.pin_led_states[led_number]):
             self.set_pin(pin_index, pin_state)
