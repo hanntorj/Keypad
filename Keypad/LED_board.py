@@ -1,5 +1,6 @@
-import RPi.GPIO as GPIO
 from time import sleep, time
+import RPi.GPIO as GPIO
+
 
 
 class LED_board:
@@ -34,7 +35,7 @@ class LED_board:
         sleep(duration)
         self.led_reset()
 
-    def flash_all_leds(self, duration):
+    def flash_all_leds(self, duration=1):
         """Flashes all leds on and off for argument "duration" amount of seconds.
         Time() returns the current time in seconds """
         stop_time = time() + duration
@@ -76,10 +77,12 @@ class LED_board:
             self.light_single_led(6, 0.2)
 
     def led_pass_change_successful(self):
+        """Led pattern indicating a successful password change"""
         self.twinkle_all_leds(1)
         self.flash_all_leds(1)
 
     def led_pass_change_unsuccessful(self):
+        """Led pattern indicating an unsuccessful password change"""
         stop_time = time() + 2
         while time() <= stop_time:
             self.light_single_led(5, 0.1)
