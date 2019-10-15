@@ -9,7 +9,7 @@ class FSM:
     def __init__(self, agent):
         self.state = "INIT"
         self.agent = agent
-        self.rules = []  # er dette liste over reglene vi legger til? Ja, tenker det foreløpig
+        self.rules = []
         self.switch = {
             1: "INIT",
             2: "READ",
