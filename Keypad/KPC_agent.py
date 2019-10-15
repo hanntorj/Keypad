@@ -54,12 +54,6 @@ class KPC:
         """Sets the Lpin"""
         self.LED_id = self.digit
 
-    def get_password(self):
-        """Import password from file"""
-        with open(self.path_password, 'r') as file:
-            password = file.readlines().strip()
-            return password
-
     def verify_login(self):
         """Checks the password. store as Y or N(Yes or No) in the override-signal. call LED board for fail or pass lighting"""
         if self.passcode_buffer == self.password:
